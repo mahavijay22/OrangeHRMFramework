@@ -9,20 +9,7 @@ namespace Maveric.OrangeHRMApplication
 {
     class TestLogin : WebDriverWrapper
     {
-        IWebDriver driver ;
-         [SetUp]
-        public void Orangesetup()
-        {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            driver.Url = "https://opensource-demo.orangehrmlive.com/";
-        }
-        [TearDown]
-        public void OrangeTeardown()
-        {
-            driver.Quit();
-        }
+        
 
         [Test]
         public void ValidCredentialTest()
@@ -31,7 +18,7 @@ namespace Maveric.OrangeHRMApplication
             LoginPage.EnterUsername(driver, "admin");
             LoginPage.EnterPassword(driver, "admin123");
             LoginPage.ClickSubmit(driver);
-            String EmpDistribution = DashboardPage.GetEmployeeDistributionByUnitHeader(driver);
+            String EmpDistribution = DashboardMenuPage.GetEmployeeDistributionByUnitHeader(driver);
             Assert.AreEqual("Employee Distribution by Subunit", EmpDistribution);
         }
 

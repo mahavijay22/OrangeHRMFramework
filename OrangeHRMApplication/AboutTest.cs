@@ -8,17 +8,26 @@ using Maveric.OrangeHRMApplication.OrangeHRMBase;
 
 namespace Maveric.OrangeHRMApplication
 {
-    class AboutTest :WebDriverWrapper
+    class AboutTest : WebDriverWrapper
+    { 
+    [Test]
+  public void  AboutSectionTest()  {
 
-    {
-      protected  IWebDriver driver;
-     //   [Test]
-        static void main(String[] args) {
+            LoginPage.EnterUsername(driver, "admin");
+            LoginPage.EnterPassword(driver, "admin123");
+            LoginPage.ClickSubmit(driver);
 
-            int i = 1;
-            String j = "2";
-            Console.WriteLine(i+j);
+            OrangePortalPage.ClickOnProfileIcon(driver);
+            OrangePortalPage.ClickOnAbout(driver);
+            String CompanyName = OrangePortalPage.GetAboutSectionDetail(driver);
+            Console.WriteLine(CompanyName);
+
+            Assert.True(CompanyName.Contains("Company Name: OrangeHRM"));
+            Assert.True(CompanyName.Contains("Version: Orangehrm OS 4.8"));
+            Assert.True(CompanyName.Contains("Active Employees: 42"));
+            Assert.True(CompanyName.Contains("Employees Terminated: 0"));
         }
+      
         }
     }
 

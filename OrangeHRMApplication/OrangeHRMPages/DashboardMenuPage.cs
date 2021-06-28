@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Maveric.OrangeHRMApplication.OrangeHRMPages
 {
-    class DashboardPage
+    class DashboardMenuPage
     {
 
         private static By EmployeeDistributionHeaderLocator = By.XPath("//legend[contains(text(),'Distribution')]");
