@@ -12,26 +12,47 @@ namespace Maveric.OrangeHRMApplication
         
 
         [Test]
-        public void ValidCredentialTest()
+        
+        public void ValidCredentialTest(String Username,String Password,String EmpDistributionText)
         {
 
-            LoginPage.EnterUsername(driver, "admin");
-            LoginPage.EnterPassword(driver, "admin123");
+            LoginPage.EnterUsername(driver, Username);
+            LoginPage.EnterPassword(driver, Password);
             LoginPage.ClickSubmit(driver);
             String EmpDistribution = DashboardMenuPage.GetEmployeeDistributionByUnitHeader(driver);
-            Assert.AreEqual("Employee Distribution by Subunit", EmpDistribution);
+            Assert.AreEqual(EmpDistributionText, EmpDistribution);
+        }
+        public static object[] InvalidCredentialData()
+        {
+            object[] temp1 = new object[3];
+            temp1[0] = "admin";
+            temp1[1] = "admin23";
+            temp1[2] = "Invalid credentials";
+
+          /*  object[] temp2 = new object[3];
+            temp2[0] = "admin1";
+            temp2[1] = "admin1223";
+            temp2[2] = "Invalid Credentials";*/
+
+            object[] main = new object[1];
+            main[0] = temp1;
+           // main[1] = temp2;
+            return main;
         }
 
+
+
         [Test]
-        public void InValidCredentialTest()
+       [TestCaseSource("InvalidCredentialData")]
+        public void InValidCredentialTest(String Username, String Password, String Error)
         {
 
-            LoginPage.EnterUsername(driver, "admin");
-            LoginPage.EnterPassword(driver, "admin23");
+            LoginPage.EnterUsername(driver, Username);
+            LoginPage.EnterPassword(driver, Password);
             LoginPage.ClickSubmit(driver);
 
             String actualerror = LoginPage.GetInvalidCredentialsErrorMsg(driver);
-            Assert.AreEqual("Invalid credentials", actualerror);
+            Assert.AreEqual(Error, actualerror);
             Console.WriteLine("actualValue" + actualerror);
         }
         [Test]
